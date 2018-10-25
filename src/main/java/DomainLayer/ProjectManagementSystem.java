@@ -3,10 +3,12 @@ package DomainLayer;
 import DataAccessLayer.FileManipulator;
 import Exceptions.IndexNotFoundException;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.FileNotFoundException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,20 +48,32 @@ public class ProjectManagementSystem {
 
             try {
                 parseCommand(index);
-            } catch (IndexNotFoundException e) {
+            } catch (IndexNotFoundException | ParseException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    private void parseCommand(int index) throws IndexNotFoundException {
-        if (index > 5 || index <= 0) {
+    private void parseCommand(int index) throws IndexNotFoundException, ParseException {
+        if (index > 6 || index <= 0) {
             throw new IndexNotFoundException("Index is not valid, " +
                     "should be between 0 and 5.");
         }
 
+        Scanner scanner = new Scanner(System.in);
+
         switch (index) {
             case 1:
+                System.out.println("Please enter the name of the project:");
+                String name = scanner.nextLine();
+                System.out.println("Please enter the description of the project:");
+                String description = scanner.nextLine();
+                System.out.println("Please enter the start date of the project " +
+                        "in this format yyyy-mm-dd:");
+                String startDate = scanner.nextLine();
+                DateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+                Date date = formatter.parse(startDate);
+                projectList.add(new Project(name, description, date, new ArrayList<>()));
                 break;
             case 2:
                 break;
@@ -71,6 +85,7 @@ public class ProjectManagementSystem {
                 break;
             case 6:
                 writeProjectsToFile();
+                System.exit(0);
                 break;
             default:
                 break;
@@ -79,9 +94,11 @@ public class ProjectManagementSystem {
     }
 
     public void addProject(String name, String description, Date startDate) {
-        Project project = new Project(name, description, startDate);
+        Project project = new Project(name, description, startDate,
+                new ArrayList<>());
         if (!projectList.contains(project))
-            projectList.add(new Project(name, description, startDate));
+            projectList.add(new Project(name, description, startDate,
+                    new ArrayList<>()));
     }
 
     public Project findProject(String name) {
@@ -121,8 +138,11 @@ public class ProjectManagementSystem {
     public void readProjectsFromFile() {
         try {
             if (manipulator.readLastFile() != null) {
-                projectList = new Gson().fromJson(manipulator.readLastFile(),
-                        new TypeToken<List<Project>>(){}.getType());
+                Gson gson = new GsonBuilder()
+                        .setDateFormat("MMMd,yyyyHH:mm:ssa")
+                        .create();
+                projectList = gson.fromJson(manipulator.readLastFile(),
+                        new TypeToken<ArrayList<Project>>(){}.getType());
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

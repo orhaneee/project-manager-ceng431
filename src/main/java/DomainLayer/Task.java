@@ -5,14 +5,15 @@ import java.util.Date;
 import java.util.List;
 
 public class Task {
-    public Task(int number, String description,Date startDate, int hours) {
+    public Task(int number, String description,Date startDate, int hours, List<Resource> resourceList) {
         this.number = number;
         this.description = description;
         this.startDate = startDate;
         this.hours = hours;
+        this.resourceList = resourceList;
     }
 
-    private List<Resource> resourceList = new ArrayList<>();
+    private List<Resource> resourceList;
 
     private int number;
 
@@ -22,7 +23,13 @@ public class Task {
 
     private int hours;
 
-    private int resourceId;
+    public void setResourceList(List<Resource> resourceList) {
+        this.resourceList = resourceList;
+    }
+
+    public List<Resource> getResourceList() {
+        return resourceList;
+    }
 
     public void setNumber(int number) {
         this.number = number;

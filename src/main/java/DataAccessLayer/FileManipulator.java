@@ -30,27 +30,28 @@ public class FileManipulator {
     }
 
     private String getDateAsString() {
-        Date date = Calendar.getInstance().getTime();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
-        return dateFormat.format(date);
+        return new SimpleDateFormat("yyyy-MM-dd").format(new Date());
     }
 
     private String getLastFile() {
         File folder = new File("./");
         File[] listOfFiles = folder.listFiles();
+        String lastFile = "";
 
-        if (listOfFiles == null) {
-            return null;
-        }
-        else {
-            String lastFile = "";
+        if (listOfFiles != null) {
             for (File file : listOfFiles) {
-                if (file.getName().compareTo(lastFile) > 0) {
-                    lastFile = file.getName();
+                if (!file.isDirectory()) {
+                    String fileName = file.getName();
+                    int i = fileName.lastIndexOf('.');
+                    if (i > 0 && fileName.substring(i+1).equals("txt")) {
+                        if (file.getName().compareTo(lastFile) > 0) {
+                            lastFile = file.getName();
+                        }
+                    }
                 }
             }
-            return lastFile;
         }
+        return lastFile.length() > 0 ? lastFile : null;
     }
 
     public String readLastFile() throws FileNotFoundException {

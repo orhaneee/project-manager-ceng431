@@ -6,10 +6,12 @@ import java.util.List;
 
 public class Project {
 
-    public Project(String name, String description, Date startDate) {
+    public Project(String name, String description, Date startDate,
+                   List<Activity> activityList) {
         this.name = name;
         this.description = description;
         this.startDate = startDate;
+        this.activityList = activityList;
     }
 
     private String name;
@@ -18,7 +20,7 @@ public class Project {
 
     private Date startDate;
 
-    private List<Activity> activityList = new ArrayList<>();
+    private List<Activity> activityList;
 
     public void setName(String name) {
         this.name = name;

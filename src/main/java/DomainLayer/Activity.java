@@ -6,11 +6,13 @@ import java.util.List;
 
 public class Activity {
 
-    public Activity(int number, String description, Date startDate, String deliverable) {
+    public Activity(int number, String description, Date startDate,
+                    String deliverable, List<Task> taskList) {
         this.number = number;
         this.description = description;
         this.startDate = startDate;
         this.deliverable = deliverable;
+        this.taskList = taskList;
     }
 
     private int number;
@@ -21,7 +23,7 @@ public class Activity {
 
     private String deliverable;
 
-    private List<Task> taskList = new ArrayList<>();
+    private List<Task> taskList;
 
     public void setNumber(int number) {
         this.number = number;
@@ -77,19 +79,19 @@ public class Activity {
     }
 
     public void updateTask(Task task, int number){
-        if (taskList.contains(task)){
+        if (taskList.contains(task)) {
             taskList.get(taskList.indexOf(task)).setNumber(number);
         }
     }
 
     public void updateTask(Task task, String description) {
-        if (taskList.contains(task)){
+        if (taskList.contains(task)) {
             taskList.get(taskList.indexOf(task)).setDescription(description);
         }
     }
 
     public void updateTask(int hour, Task task) {
-        if (taskList.contains(task)){
+        if (taskList.contains(task)) {
             taskList.get(taskList.indexOf(task)).setHours(hour);
         }
     }
@@ -101,7 +103,7 @@ public class Activity {
     }
 
     public void unassignResourceToTask(Task task, Resource resource) {
-        if(taskList.contains(task)) {
+        if (taskList.contains(task)) {
             task.removeResource(resource);
         }
     }
@@ -112,7 +114,7 @@ public class Activity {
 
     public int calculateAllTaskDuration() {
         int sum = 0;
-        for (Task task : taskList){
+        for (Task task : taskList) {
             sum += calculateTaskDuration(task);
         }
         return sum;
