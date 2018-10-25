@@ -3,6 +3,14 @@ package DomainLayer;
 import java.util.Date;
 
 public class Task {
+    public Task(int number, String description,Date startDate, int hours, int resourceId){
+        this.number = number;
+        this.description = description;
+        this.startDate = startDate;
+        this.hours = hours;
+        this.resourceId = resourceId;
+    }
+
     private int number;
 
     private String description;

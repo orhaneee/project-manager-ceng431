@@ -1,9 +1,11 @@
 package PresentationLayer;
 
+import DomainLayer.ProjectManagementSystem;
+
 public class ProjectManagerApp {
 
     public static void main(String[] args) {
-        Menu menu = Menu.getInstance();
-        menu.init();
+        ProjectManagementSystem pms = ProjectManagementSystem.getInstance();
+        pms.init();
     }
 }

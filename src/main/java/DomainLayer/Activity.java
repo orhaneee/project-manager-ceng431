@@ -5,6 +5,14 @@ import java.util.Date;
 import java.util.List;
 
 public class Activity {
+
+    public Activity(int number, String description, Date startDate, String deliverable) {
+        this.number = number;
+        this.description = description;
+        this.startDate = startDate;
+        this.deliverable = deliverable;
+    }
+
     private int number;
 
     private String description;
@@ -58,5 +66,17 @@ public class Activity {
             }
             return totalHour;
         }
+    }
+
+    public void addTask(Task task) {
+        taskList.add(task);
+    }
+
+    public void removeTask(Task task){
+        taskList.remove(task);
+    }
+
+    public void updateTask(Task task, int number){
+
     }
 }

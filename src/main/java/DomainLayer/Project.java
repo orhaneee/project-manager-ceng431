@@ -1,13 +1,24 @@
 package DomainLayer;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Project {
+
+    public Project(String name, String description, Date startDate){
+        this.name = name;
+        this.description = description;
+        this.startDate = startDate;
+    }
+
     private String name;
 
     private String description;
 
     private Date startDate;
+
+    private List<Activity> activityList = new ArrayList<>();
 
     public void setName(String name) {
         this.name = name;
@@ -32,4 +43,34 @@ public class Project {
     public Date getStartDate() {
         return startDate;
     }
+
+    public void addActivity(Activity activity){
+        activityList.add(activity);
+    }
+
+    public void removeActivity(Activity activity){
+        activityList.remove(activity);
+    }
+
+    public void updateActivity(Activity activity, int number) {
+        if (activityList.contains(activity)) {
+            activityList.get(activityList.indexOf(activity))
+                    .setNumber(number);
+        }
+    }
+
+    public void updateActivity(Activity activity, String description) {
+        if (activityList.contains(activity)) {
+            activityList.get(activityList.indexOf(activity))
+                    .setDescription(description);
+        }
+    }
+
+    public void updateActivity(String deliverable, Activity activity) {
+        if (activityList.contains(activity)){
+            activityList.get(activityList.indexOf(activity))
+                    .setDeliverable(deliverable);
+        }
+    }
+
 }
