@@ -1,14 +1,10 @@
 package DomainLayer;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Resource {
 
     private int id;
 
     public Resource(int id) {
-
         this.id = id;
     }
 
@@ -19,7 +15,5 @@ public class Resource {
     public int getId() {
         return id;
     }
-
-
 
 }

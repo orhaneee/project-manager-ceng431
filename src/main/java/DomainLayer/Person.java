@@ -19,6 +19,4 @@ public class Person extends Resource {
         return name;
     }
 
-
-
 }

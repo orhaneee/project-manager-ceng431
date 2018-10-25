@@ -5,12 +5,11 @@ import java.util.Date;
 import java.util.List;
 
 public class Task {
-    public Task(int number, String description,Date startDate, int hours, int resourceId){
+    public Task(int number, String description,Date startDate, int hours){
         this.number = number;
         this.description = description;
         this.startDate = startDate;
         this.hours = hours;
-        this.resourceId = resourceId;
     }
 
     private List<Resource> resourceList = new ArrayList<>();
@@ -57,14 +56,6 @@ public class Task {
         return hours;
     }
 
-    public void setResourceId(int id) {
-        this.resourceId = id;
-    }
-
-    public int getResourceId() {
-        return resourceId;
-    }
-
     public void addResource(Resource resource) {
         resourceList.add(resource);
     }
@@ -73,6 +64,28 @@ public class Task {
         resourceList.remove(resource);
     }
 
+    public List<Employee> getEmployees() {
+        List<Employee> employeeList = new ArrayList<>();
+        for (Resource resource : resourceList) {
+            if (resource instanceof Employee) {
+                if (!employeeList.contains(resource)) {
+                    employeeList.add((Employee) resource);
+                }
+            }
+        }
+        return employeeList;
+    }
 
+    public List<Consultant> getConsultans() {
+        List<Consultant> consultantList = new ArrayList<>();
+        for (Resource resource : resourceList) {
+            if (resource instanceof Consultant) {
+                if (!consultantList.contains(resource)) {
+                    consultantList.add((Consultant) resource);
+                }
+            }
+        }
+        return consultantList;
+    }
 
 }

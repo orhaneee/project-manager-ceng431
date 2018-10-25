@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Project {
 
-    public Project(String name, String description, Date startDate){
+    public Project(String name, String description, Date startDate) {
         this.name = name;
         this.description = description;
         this.startDate = startDate;
@@ -67,7 +67,7 @@ public class Project {
     }
 
     public void updateActivity(String deliverable, Activity activity) {
-        if (activityList.contains(activity)){
+        if (activityList.contains(activity)) {
             activityList.get(activityList.indexOf(activity))
                     .setDeliverable(deliverable);
         }
@@ -77,14 +77,37 @@ public class Project {
         return activity.calculateAllTaskDuration();
     }
 
-    public int calculateAllActivityDuration(){
+    public int calculateAllActivityDuration() {
         int sum = 0;
 
-        for(Activity activity : activityList){
+        for (Activity activity : activityList) {
             sum += calculateActivityDuration(activity);
         }
 
         return sum;
     }
 
+    public List<Employee> getEmployees() {
+        List<Employee> employeeList = new ArrayList<>();
+        for (Activity activity : activityList) {
+            for (Employee employee : activity.getEmployees()) {
+                if (!employeeList.contains(employee)) {
+                    employeeList.add(employee);
+                }
+            }
+        }
+        return employeeList;
+    }
+    
+    public List<Consultant> getConsultans() {
+        List<Consultant> consultantList = new ArrayList<>();
+        for (Activity activity : activityList) {
+            for (Consultant consultant : activity.getConsultants()) {
+                if (!consultantList.contains(consultant)) {
+                    consultantList.add(consultant);
+                }
+            }
+        }
+        return consultantList;
+    }
 }

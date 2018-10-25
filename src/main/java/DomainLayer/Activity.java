@@ -94,34 +94,51 @@ public class Activity {
         }
     }
 
-    public void updateTask(Task task, int resourceId, int a) {
-        if (taskList.contains(task)){
-            taskList.get(taskList.indexOf(task)).setResourceId(resourceId);
-        }
-    }
-
     public void assignResourceToTask(Task task, Resource resource) {
-        if(task.getResourceId() != resource.getId()){
-            task.setResourceId(resource.getId());
+        if (taskList.contains(task)) {
+            task.addResource(resource);
         }
     }
 
     public void unassignResourceToTask(Task task, Resource resource) {
-        taskList.get(taskList.indexOf(task)).setResourceId(0);
+        if(taskList.contains(task)) {
+            task.removeResource(resource);
+        }
     }
 
     public int calculateTaskDuration(Task task) {
         return taskList.get(taskList.indexOf(task)).getHours();
     }
 
-    public int calculateAllTaskDuration(){
+    public int calculateAllTaskDuration() {
         int sum = 0;
-
-        for(Task task : taskList){
+        for (Task task : taskList){
             sum += calculateTaskDuration(task);
         }
-
         return sum;
     }
 
+    public List<Employee> getEmployees() {
+        List<Employee> employeeList = new ArrayList<>();
+        for (Task task : taskList) {
+            for (Employee employee : task.getEmployees()) {
+                if (!employeeList.contains(employee)) {
+                    employeeList.add(employee);
+                }
+            }
+        }
+        return employeeList;
+    }
+
+    public List<Consultant> getConsultants() {
+        List<Consultant> consultantList = new ArrayList<>();
+        for (Task task : taskList) {
+            for (Consultant consultant : task.getConsultans()) {
+                if (!consultantList.contains(consultant)) {
+                    consultantList.add(consultant);
+                }
+            }
+        }
+        return consultantList;
+    }
 }
