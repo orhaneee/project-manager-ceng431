@@ -1,7 +1,11 @@
 package DomainLayer;
 
+import DataAccessLayer.FileManipulator;
 import Exceptions.IndexNotFoundException;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.FileNotFoundException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,7 +25,11 @@ public class ProjectManagementSystem {
         return pms;
     }
 
+    private FileManipulator manipulator;
+
     public void init() {
+        manipulator = new FileManipulator();
+        readProjectsFromFile();
 
         while (true) {
             System.out.println("Welcome to Project Management System!");
@@ -62,6 +70,7 @@ public class ProjectManagementSystem {
             case 5:
                 break;
             case 6:
+                writeProjectsToFile();
                 break;
             default:
                 break;
@@ -103,6 +112,21 @@ public class ProjectManagementSystem {
 
     public void removeActivity(Project project, Activity activity) {
         project.removeActivity(activity);
+    }
+
+    public void writeProjectsToFile() {
+        manipulator.writeToFile(new Gson().toJson(projectList, ArrayList.class));
+    }
+
+    public void readProjectsFromFile() {
+        try {
+            if (manipulator.readLastFile() != null) {
+                projectList = new Gson().fromJson(manipulator.readLastFile(),
+                        new TypeToken<List<Project>>(){}.getType());
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 }

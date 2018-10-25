@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Task {
-    public Task(int number, String description,Date startDate, int hours){
+    public Task(int number, String description,Date startDate, int hours) {
         this.number = number;
         this.description = description;
         this.startDate = startDate;
@@ -57,11 +57,15 @@ public class Task {
     }
 
     public void addResource(Resource resource) {
-        resourceList.add(resource);
+        if (!resourceList.contains(resource)) {
+            resourceList.add(resource);
+        }
     }
 
     public void removeResource(Resource resource) {
-        resourceList.remove(resource);
+        if (resourceList.contains(resource)) {
+            resourceList.remove(resource);
+        }
     }
 
     public List<Employee> getEmployees() {
