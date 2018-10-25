@@ -135,7 +135,7 @@ public class Activity {
     public List<Consultant> getConsultants() {
         List<Consultant> consultantList = new ArrayList<>();
         for (Task task : taskList) {
-            for (Consultant consultant : task.getConsultans()) {
+            for (Consultant consultant : task.getConsultants()) {
                 if (!consultantList.contains(consultant)) {
                     consultantList.add(consultant);
                 }

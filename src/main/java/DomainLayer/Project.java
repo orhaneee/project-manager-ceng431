@@ -46,27 +46,31 @@ public class Project {
         return startDate;
     }
 
-    public void addActivity(Activity activity){
+    public Activity getActivity(int number) {
+        for (Activity activity : activityList) {
+            if(activity.getNumber() == number) {
+                return activity;
+            }
+        }
+        return null;
+    }
+
+    public void addActivity(Activity activity) {
         activityList.add(activity);
     }
 
-    public void removeActivity(Activity activity){
+    public void removeActivity(Activity activity) {
         activityList.remove(activity);
     }
 
-    public void updateActivity(Activity activity, int number) {
-        if (activityList.contains(activity)) {
-            activityList.get(activityList.indexOf(activity))
-                    .setNumber(number);
+    public void removeActivity(int number) {
+        for (Activity activity : activityList) {
+            if (activity.getNumber() == number) {
+                activityList.remove(activity);
+            }
         }
     }
 
-    public void updateActivity(Activity activity, String description) {
-        if (activityList.contains(activity)) {
-            activityList.get(activityList.indexOf(activity))
-                    .setDescription(description);
-        }
-    }
 
     public void updateActivity(String deliverable, Activity activity) {
         if (activityList.contains(activity)) {
@@ -101,7 +105,7 @@ public class Project {
         return employeeList;
     }
     
-    public List<Consultant> getConsultans() {
+    public List<Consultant> getConsultants() {
         List<Consultant> consultantList = new ArrayList<>();
         for (Activity activity : activityList) {
             for (Consultant consultant : activity.getConsultants()) {

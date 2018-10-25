@@ -87,7 +87,7 @@ public class Task {
         return employeeList;
     }
 
-    public List<Consultant> getConsultans() {
+    public List<Consultant> getConsultants() {
         List<Consultant> consultantList = new ArrayList<>();
         for (Resource resource : resourceList) {
             if (resource instanceof Consultant) {
