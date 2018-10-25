@@ -77,6 +77,26 @@ public class Activity {
     }
 
     public void updateTask(Task task, int number){
+        if (taskList.contains(task)){
+            taskList.get(taskList.indexOf(task)).setNumber(number);
+        }
+    }
 
+    public void updateTask(Task task, String description) {
+        if (taskList.contains(task)){
+            taskList.get(taskList.indexOf(task)).setDescription(description);
+        }
+    }
+
+    public void updateTask(int hour, Task task) {
+        if (taskList.contains(task)){
+            taskList.get(taskList.indexOf(task)).setHours(hour);
+        }
+    }
+
+    public void updateTask(Task task, int resourceId, int a) {
+        if (taskList.contains(task)){
+            taskList.get(taskList.indexOf(task)).setResourceId(resourceId);
+        }
     }
 }
