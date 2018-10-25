@@ -99,4 +99,29 @@ public class Activity {
             taskList.get(taskList.indexOf(task)).setResourceId(resourceId);
         }
     }
+
+    public void assignResourceToTask(Task task, Resource resource) {
+        if(task.getResourceId() != resource.getId()){
+            task.setResourceId(resource.getId());
+        }
+    }
+
+    public void unassignResourceToTask(Task task, Resource resource) {
+        taskList.get(taskList.indexOf(task)).setResourceId(0);
+    }
+
+    public int calculateTaskDuration(Task task) {
+        return taskList.get(taskList.indexOf(task)).getHours();
+    }
+
+    public int calculateAllTaskDuration(){
+        int sum = 0;
+
+        for(Task task : taskList){
+            sum += calculateTaskDuration(task);
+        }
+
+        return sum;
+    }
+
 }

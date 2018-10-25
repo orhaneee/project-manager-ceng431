@@ -13,6 +13,7 @@ public class ProjectManagementSystem {
 
     private List<Project> projectList = new ArrayList<>();
 
+
     private static ProjectManagementSystem pms = new ProjectManagementSystem();
 
     private ProjectManagementSystem() {}
@@ -104,6 +105,8 @@ public class ProjectManagementSystem {
     public void removeActivity(Project project, Activity activity) {
         project.removeActivity(activity);
     }
+
+
 
 
 }

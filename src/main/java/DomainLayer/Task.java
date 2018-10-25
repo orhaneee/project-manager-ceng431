@@ -1,6 +1,8 @@
 package DomainLayer;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Task {
     public Task(int number, String description,Date startDate, int hours, int resourceId){
@@ -10,6 +12,8 @@ public class Task {
         this.hours = hours;
         this.resourceId = resourceId;
     }
+
+    private List<Resource> resourceList = new ArrayList<>();
 
     private int number;
 
@@ -59,6 +63,14 @@ public class Task {
 
     public int getResourceId() {
         return resourceId;
+    }
+
+    public void addResource(Resource resource) {
+        resourceList.add(resource);
+    }
+
+    public void removeResource(Resource resource) {
+        resourceList.remove(resource);
     }
 
 

@@ -73,4 +73,18 @@ public class Project {
         }
     }
 
+    public int calculateActivityDuration(Activity activity) {
+        return activity.calculateAllTaskDuration();
+    }
+
+    public int calculateAllActivityDuration(){
+        int sum = 0;
+
+        for(Activity activity : activityList){
+            sum += calculateActivityDuration(activity);
+        }
+
+        return sum;
+    }
+
 }
