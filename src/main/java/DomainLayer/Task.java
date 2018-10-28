@@ -1,19 +1,17 @@
 package DomainLayer;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class Task {
-    public Task(int number, String description,Date startDate, int hours, List<Resource> resourceList) {
+    public Task(int number, String description,Date startDate, int hours) {
         this.number = number;
         this.description = description;
         this.startDate = startDate;
         this.hours = hours;
-        this.resourceList = resourceList;
+        this.resourceId = 0;
     }
 
-    private List<Resource> resourceList;
+    private int resourceId;
 
     private int number;
 
@@ -23,12 +21,14 @@ public class Task {
 
     private int hours;
 
-    public void setResourceList(List<Resource> resourceList) {
-        this.resourceList = resourceList;
+    public void setResourceId(int resourceId) {
+        if(resourceId > 0){
+            this.resourceId = resourceId;
+        }
     }
 
-    public List<Resource> getResourceList() {
-        return resourceList;
+    public int getResourceId() {
+        return resourceId;
     }
 
     public void setNumber(int number) {
@@ -63,40 +63,11 @@ public class Task {
         return hours;
     }
 
-    public void addResource(Resource resource) {
-        if (!resourceList.contains(resource)) {
-            resourceList.add(resource);
+    public void removeResource(int resourceId) {
+        if (resourceId == getResourceId()) {
+            setResourceId(0);
         }
     }
 
-    public void removeResource(Resource resource) {
-        if (resourceList.contains(resource)) {
-            resourceList.remove(resource);
-        }
-    }
-
-    public List<Employee> getEmployees() {
-        List<Employee> employeeList = new ArrayList<>();
-        for (Resource resource : resourceList) {
-            if (resource instanceof Employee) {
-                if (!employeeList.contains(resource)) {
-                    employeeList.add((Employee) resource);
-                }
-            }
-        }
-        return employeeList;
-    }
-
-    public List<Consultant> getConsultants() {
-        List<Consultant> consultantList = new ArrayList<>();
-        for (Resource resource : resourceList) {
-            if (resource instanceof Consultant) {
-                if (!consultantList.contains(resource)) {
-                    consultantList.add((Consultant) resource);
-                }
-            }
-        }
-        return consultantList;
-    }
 
 }

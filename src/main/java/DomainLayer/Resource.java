@@ -1,19 +1,24 @@
 package DomainLayer;
 
-public class Resource {
+import java.util.List;
 
-    private int id;
+public interface Resource {
 
-    public Resource(int id) {
-        this.id = id;
-    }
+    void setId(int id);
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    int getId();
 
-    public int getId() {
-        return id;
-    }
+    void setName(String name);
+
+    String getName();
+
+    List<Task> getTaskList();
+
+    void addTask(Task task);
+
+    void removeTask(Task task);
+
+    Task findTask(int number);
+
 
 }

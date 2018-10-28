@@ -78,6 +78,24 @@ public class Activity {
         taskList.remove(task);
     }
 
+    public void removeTask(int taskId) {
+        Task task = findTask(taskId);
+        taskList.remove(task);
+    }
+
+    public Task findTask(int taskId) {
+        for (Task task : taskList) {
+            if (task.getNumber() == taskId) {
+                return task;
+            }
+        }
+        return null;
+    }
+
+    public List<Task> getTaskList() {
+        return taskList;
+    }
+
     public void updateTask(Task task, int number){
         if (taskList.contains(task)) {
             taskList.get(taskList.indexOf(task)).setNumber(number);
@@ -96,15 +114,15 @@ public class Activity {
         }
     }
 
-    public void assignResourceToTask(Task task, Resource resource) {
+    public void assignResourceToTask(Task task, int resourceId) {
         if (taskList.contains(task)) {
-            task.addResource(resource);
+            task.setResourceId(resourceId);
         }
     }
 
-    public void unassignResourceToTask(Task task, Resource resource) {
+    public void unassignResourceFromTask(Task task, Resource resource) {
         if (taskList.contains(task)) {
-            task.removeResource(resource);
+            task.setResourceId(0);
         }
     }
 
@@ -120,6 +138,13 @@ public class Activity {
         return sum;
     }
 
+    public void removeResourceFromAllTasks(int resourceId) {
+        for (Task task : taskList) {
+            task.removeResource(resourceId);
+        }
+    }
+
+    /*
     public List<Employee> getEmployees() {
         List<Employee> employeeList = new ArrayList<>();
         for (Task task : taskList) {
@@ -143,4 +168,5 @@ public class Activity {
         }
         return consultantList;
     }
+    */
 }

@@ -46,10 +46,26 @@ public class Project {
         return startDate;
     }
 
-    public Activity getActivity(int number) {
+    public List<Activity> getActivityList() {
+        return activityList;
+    }
+
+    public Activity findActivity(int number) {
         for (Activity activity : activityList) {
             if(activity.getNumber() == number) {
                 return activity;
+            }
+        }
+        return null;
+    }
+
+    public Activity findActivityFromTaskId(int taskId) {
+        for (Activity activity : activityList) {
+            List<Task> taskList = activity.getTaskList();
+            for (Task task : taskList) {
+                if(task.getNumber() == taskId){
+                    return activity;
+                }
             }
         }
         return null;
@@ -64,11 +80,8 @@ public class Project {
     }
 
     public void removeActivity(int number) {
-        for (Activity activity : activityList) {
-            if (activity.getNumber() == number) {
-                activityList.remove(activity);
-            }
-        }
+        Activity activity = findActivity(number);
+        activityList.remove(activity);
     }
 
 
@@ -93,6 +106,14 @@ public class Project {
         return sum;
     }
 
+    public void removeResourceFromAllActivities(int resourceId) {
+        for (Activity activity : activityList) {
+            activity.removeResourceFromAllTasks(resourceId);
+        }
+    }
+
+
+    /*
     public List<Employee> getEmployees() {
         List<Employee> employeeList = new ArrayList<>();
         for (Activity activity : activityList) {
@@ -116,4 +137,5 @@ public class Project {
         }
         return consultantList;
     }
+    */
 }
