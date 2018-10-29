@@ -8,13 +8,13 @@ public interface Resource {
 
     int getId();
 
-    List<Task> getTaskList();
+    List<Integer> getTaskList();
 
-    void addTask(Task task);
+    void addTask(int taskId);
 
-    void removeTask(Task task);
+    void removeTask(int taskId);
 
-    Task findTask(int number);
+    int findTaskId(int number);
 
 
 }

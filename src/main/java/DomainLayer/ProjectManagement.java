@@ -178,7 +178,7 @@ public class ProjectManagement {
                     int resourceId2 = scanner.nextInt();
                     scanner.nextLine();
                     activityToBeUpdated.findTask(number3).setResourceId(resourceId2);
-                    resourceList.get(resourceList.indexOf(findResource(resourceId2))).addTask(activityToBeUpdated.findTask(number3));
+                    resourceList.get(resourceList.indexOf(findResource(resourceId2))).addTask(number3);
                 } else {
                     System.out.println("You didn't enter 1 or 2.");
                 }
@@ -335,8 +335,8 @@ public class ProjectManagement {
 
     private void removeTaskFromResource (int taskId) {
         for (Resource resource : resourceList) {
-            if (resource.findTask(taskId).getResourceId() == resource.getId()) {
-                resource.removeTask(resource.findTask(taskId));
+            if (resource.getTaskList().contains(taskId)) {
+                resource.removeTask(taskId);
             }
         }
     }
@@ -367,7 +367,7 @@ public class ProjectManagement {
     private void assignResourceToTask(String projectName, int resourceId, int taskId) {
         if (isResourceExist(resourceId)) {
             projectList.get(projectList.indexOf(findProject(projectName))).findActivityFromTaskId(taskId).findTask(taskId).setResourceId(resourceId);
-            findResource(resourceId).addTask(projectList.get(projectList.indexOf(findProject(projectName))).findActivityFromTaskId(taskId).findTask(taskId));
+            findResource(resourceId).addTask(taskId);
         }
 
     }
@@ -375,7 +375,7 @@ public class ProjectManagement {
     private void unassignResourceFromTask(String projectName, int resourceId, int taskId) {
         if (projectList.get(projectList.indexOf(findProject(projectName))).findActivityFromTaskId(taskId).findTask(taskId).getResourceId() == resourceId){
             projectList.get(projectList.indexOf(findProject(projectName))).findActivityFromTaskId(taskId).findTask(taskId).setResourceId(0);
-            findResource(resourceId).removeTask(projectList.get(projectList.indexOf(findProject(projectName))).findActivityFromTaskId(taskId).findTask(taskId));
+            findResource(resourceId).removeTask(taskId);
         }
     }
 
@@ -392,5 +392,7 @@ public class ProjectManagement {
     private void printAllTasksOfActivityOfProjectDuration(String projectName, int activityId) {
         findProject(projectName).findActivity(activityId).printAllTasksOfDuration();
     }
+
+
 
 }

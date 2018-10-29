@@ -6,7 +6,7 @@ import java.util.List;
 public class Consultant extends Person {
 
     private int id;
-    private List<Task> taskList = new ArrayList<>();
+    private List<Integer> taskList = new ArrayList<>();
 
     public Consultant(int id){
         this.id = id;
@@ -26,30 +26,30 @@ public class Consultant extends Person {
     }
 
     @Override
-    public List<Task> getTaskList() {
+    public List<Integer> getTaskList() {
         return taskList;
     }
 
     @Override
-    public Task findTask(int number) {
-        for(Task task : taskList) {
-            if(task.getNumber() == number) {
-                return task;
+    public int findTaskId(int number) {
+        for(Integer taskId : taskList) {
+            if(taskId == number) {
+                return taskId;
             }
         }
-        return null;
+        return -1;
     }
 
     @Override
-    public void addTask(Task task){
-        if (!taskList.contains(task)){
-            taskList.add(task);
+    public void addTask(int taskId){
+        if (!taskList.contains(taskId)){
+            taskList.add(taskId);
         }
     }
 
     @Override
-    public void removeTask(Task task) {
-        taskList.remove(task);
+    public void removeTask(int taskId) {
+        taskList.remove(taskId);
     }
 
 }

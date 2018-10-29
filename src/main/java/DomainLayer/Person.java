@@ -12,13 +12,13 @@ public abstract class Person implements Resource {
 
     public abstract int getId();
 
-    public abstract List<Task> getTaskList();
+    public abstract List<Integer> getTaskList();
 
-    public abstract Task findTask(int number);
+    public abstract int findTaskId(int number);
 
-    public abstract void addTask(Task task);
+    public abstract void addTask(int taskId);
 
-    public abstract void removeTask(Task task);
+    public abstract void removeTask(int taskId);
 
 
 }
