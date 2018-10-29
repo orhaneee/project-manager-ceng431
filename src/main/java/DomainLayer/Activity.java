@@ -144,6 +144,12 @@ public class Activity {
         }
     }
 
+    public void printAllTasksOfDuration(){
+        for (Task task : taskList) {
+            System.out.println("Task Id: " + task.getNumber() + "    Duration: " + calculateTaskDuration(task));
+        }
+    }
+
     /*
     public List<Employee> getEmployees() {
         List<Employee> employeeList = new ArrayList<>();

@@ -8,14 +8,16 @@ public class Employee extends Person {
     private int id;
     private List<Task> taskList = new ArrayList<>();
 
-    public Employee(String name, int id){
-        super(name);
+    public Employee(int id){
         this.id = id;
     }
 
+    //employee id should be bigger than 1000, since consultant id should be lower than 1000.
     @Override
     public void setId(int id) {
-        this.id = id;
+        if (id > 1000) {
+            this.id = id;
+        }
     }
 
     @Override

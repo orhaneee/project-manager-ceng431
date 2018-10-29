@@ -6,13 +6,11 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.FileNotFoundException;
+import java.net.PortUnreachableException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class ProjectManagement {
 
@@ -76,6 +74,7 @@ public class ProjectManagement {
                 break;
         }
     }
+
 
     private void manipulateActivities(Project projectToBeUpdated) throws ParseException {
         System.out.println("Press 1 to add an activity to corresponding project.");
@@ -200,23 +199,17 @@ public class ProjectManagement {
 
         switch (index){
             case 1:
-                System.out.println("Please enter the name of the " +
-                        "new resource you would like to add:");
-                String name = scanner.nextLine();
                 System.out.println("Please enter the id of the new resource " +
                         "you would like to add:");
                 int number = scanner.nextInt();
-                scanner.nextLine();
-                System.out.println("Please enter the number of the activity that new resource will be in:");
-                int number2 = scanner.nextInt();
                 scanner.nextLine();
                 System.out.println("Please enter 1 if this resource is an employee, or enter 2 if this resource is a consultant.");
                 int number4 = scanner.nextInt();
                 scanner.nextLine();
                 if (number4 == 1) {
-                    resourceList.add(new Employee(name, number));
+                    resourceList.add(new Employee(number));
                 } else if (number4 == 2) {
-                    resourceList.add(new Consultant(name, number));
+                    resourceList.add(new Consultant(number));
                 }
                 break;
             case 2:
@@ -239,20 +232,48 @@ public class ProjectManagement {
         }
     }
 
+    public void calculateTimes() {
+        System.out.println("Please press 1 to see the duration of projects.");
+        System.out.println("Please press 2 to see the duration of activities of a project");
+        System.out.println("Please press 3 to see the duration of tasks of a activity of a project");
 
-    public List<Resource> getResourceList() {
-        return resourceList;
+        Scanner scanner = new Scanner(System.in);
+        int number = scanner.nextInt();
+        scanner.nextLine();
+        switch (number){
+            case 1:
+                printAllProjectsDuration();
+                break;
+            case 2:
+                System.out.println("Please enter the name of the project that you would like to see its activities duration.");
+                String projectName = scanner.nextLine();
+                printAllActivitiesOfProjectDuration(projectName);
+                break;
+            case 3:
+                System.out.println("Please enter the name of the project that you would like to see its tasks duration.");
+                String projectName2 = scanner.nextLine();
+                System.out.println("Please enter the id of the activity of " + projectName2 + " project to its tasks duration.");
+                int activityId = scanner.nextInt();
+                scanner.nextLine();
+                printAllTasksOfActivityOfProjectDuration(projectName2, activityId);
+                break;
+            default:
+                break;
+
+
+        }
     }
+
 
     //should print resource list.
     public void printResourceList(){
         for (Resource resource : resourceList) {
-            System.out.println(resource.getId() + "   " + resource.getName());
-            System.out.println(resource.getTaskList());
+            System.out.println(resource.getId() + "   " + resource.getTaskList().toString());
         }
     }
 
-    //should print all projects and its details.
+
+    // should print all projects and its details.
     public void printProjectList() {
         for (Project project : projectList) {
             System.out.println(project.getName() + "    " + project.getDescription() + "    " + project.getStartDate().toString());
@@ -287,8 +308,6 @@ public class ProjectManagement {
     public void writeProjectsToFile() {
         if (projectList.size() > 0)
             manipulator.writeToFile(new Gson().toJson(projectList, ArrayList.class));
-        /*if (resourceList.size() > 0)
-            manipulator.writeToFile(new Gson().toJson(resourceList, ArrayList.class));*/
     }
 
     public void readProjectsFromFile() {
@@ -348,6 +367,7 @@ public class ProjectManagement {
     private void assignResourceToTask(String projectName, int resourceId, int taskId) {
         if (isResourceExist(resourceId)) {
             projectList.get(projectList.indexOf(findProject(projectName))).findActivityFromTaskId(taskId).findTask(taskId).setResourceId(resourceId);
+            findResource(resourceId).addTask(projectList.get(projectList.indexOf(findProject(projectName))).findActivityFromTaskId(taskId).findTask(taskId));
         }
 
     }
@@ -357,6 +377,20 @@ public class ProjectManagement {
             projectList.get(projectList.indexOf(findProject(projectName))).findActivityFromTaskId(taskId).findTask(taskId).setResourceId(0);
             findResource(resourceId).removeTask(projectList.get(projectList.indexOf(findProject(projectName))).findActivityFromTaskId(taskId).findTask(taskId));
         }
+    }
+
+    private void printAllProjectsDuration() {
+        for (Project project : projectList) {
+            System.out.println("Project name: " + project.getName() + "    Duration: " + project.calculateAllActivityDuration());
+        }
+    }
+
+    private void printAllActivitiesOfProjectDuration(String projectName) {
+        findProject(projectName).printAllActivitiesOfDuration();
+    }
+
+    private void printAllTasksOfActivityOfProjectDuration(String projectName, int activityId) {
+        findProject(projectName).findActivity(activityId).printAllTasksOfDuration();
     }
 
 }

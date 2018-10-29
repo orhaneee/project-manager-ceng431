@@ -8,10 +8,6 @@ public interface Resource {
 
     int getId();
 
-    void setName(String name);
-
-    String getName();
-
     List<Task> getTaskList();
 
     void addTask(Task task);

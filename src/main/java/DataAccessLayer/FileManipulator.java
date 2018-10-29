@@ -52,6 +52,7 @@ public class FileManipulator {
         return lastFile.length() > 0 ? lastFile : null;
     }
 
+
     public String readLastFile() throws FileNotFoundException {
         if (getLastFile() != null) {
             Scanner in = new Scanner(new FileReader(getLastFile()));
@@ -66,5 +67,6 @@ public class FileManipulator {
             return null;
         }
     }
+
 
 }

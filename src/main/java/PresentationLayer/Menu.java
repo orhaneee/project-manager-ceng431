@@ -24,6 +24,8 @@ public class Menu {
     public void init() {
         projectManager.readProjectsFromFile();
 
+
+
         while (true) {
             System.out.println("Welcome to Project Management System!");
             System.out.println("Press 1 to add a new project");
@@ -87,13 +89,14 @@ public class Menu {
                 String name3 = scanner.nextLine();
                 projectManager.updateProject(name3);
                 break;
-            case 4: //calculate project, activity, and task duration by hours
+            case 4:
+                projectManager.calculateTimes();
                 break;
             case 5: //find number of distinct employees and consultants assigned to a project, activity and task.
                 break;
             case 6: projectManager.printProjectList(); //display project details.
                 break;
-            case 7: System.out.println(projectManager.getResourceList().toString()); //display resource details.
+            case 7: projectManager.printResourceList(); //display resource details. //not working!!!!!!!!
                 break;
             case 8:
                 projectManager.writeProjectsToFile();

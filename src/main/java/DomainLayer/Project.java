@@ -3,6 +3,7 @@ package DomainLayer;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.ListIterator;
 
 public class Project {
 
@@ -49,6 +50,7 @@ public class Project {
     public List<Activity> getActivityList() {
         return activityList;
     }
+
 
     public Activity findActivity(int number) {
         for (Activity activity : activityList) {
@@ -109,6 +111,12 @@ public class Project {
     public void removeResourceFromAllActivities(int resourceId) {
         for (Activity activity : activityList) {
             activity.removeResourceFromAllTasks(resourceId);
+        }
+    }
+
+    public void printAllActivitiesOfDuration() {
+        for (Activity activity : activityList) {
+            System.out.println("Activity name: " + activity.getNumber() + "     Duration: " + activity.calculateAllTaskDuration());
         }
     }
 
