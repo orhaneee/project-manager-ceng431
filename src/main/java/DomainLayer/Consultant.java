@@ -3,6 +3,9 @@ package DomainLayer;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Consultant class which is also subclass of Person.
+ */
 public class Consultant extends Person {
 
     private int id;
@@ -12,7 +15,6 @@ public class Consultant extends Person {
         this.id = id;
     }
 
-    //consultant id should be lower than 1001, since employee id should be bigger than 1000.
     @Override
     public void setId(int id) {
         if ((0 < id) && (id <= 1000)) {
@@ -32,7 +34,7 @@ public class Consultant extends Person {
 
     @Override
     public int findTaskId(int number) {
-        for(Integer taskId : taskList) {
+        for (Integer taskId : taskList) {
             if(taskId == number) {
                 return taskId;
             }
@@ -42,7 +44,7 @@ public class Consultant extends Person {
 
     @Override
     public void addTask(int taskId){
-        if (!taskList.contains(taskId)){
+        if (!taskList.contains(taskId)) {
             taskList.add(taskId);
         }
     }

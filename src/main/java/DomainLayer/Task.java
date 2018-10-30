@@ -2,7 +2,11 @@ package DomainLayer;
 
 import java.util.Date;
 
+/**
+ * Task class.
+ */
 public class Task {
+
     public Task(int number, String description,Date startDate, int hours) {
         this.number = number;
         this.description = description;
@@ -22,7 +26,7 @@ public class Task {
     private int hours;
 
     public void setResourceId(int resourceId) {
-        if(resourceId > 0){
+        if(resourceId > 0) {
             this.resourceId = resourceId;
         }
     }
@@ -68,6 +72,4 @@ public class Task {
             setResourceId(0);
         }
     }
-
-
 }

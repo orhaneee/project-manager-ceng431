@@ -5,8 +5,19 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+/**
+ *
+ * This class is responsible for writing to and reading from files.
+ * It returns and receives String after operations and
+ * checks for the last saved file
+ *
+ */
 public class FileManipulator {
 
+    /**
+     * Writing directly to a file with current date.
+     * @param content JSON string passed from Project Manager.
+     */
     public void writeToFile(String content) {
         OutputStream os = null;
         try {
@@ -27,10 +38,18 @@ public class FileManipulator {
         }
     }
 
+    /**
+     * Gets current date as string and besides as formatted.
+     * @return current date
+     */
     private String getDateAsString() {
         return new SimpleDateFormat("yyyy-MM-dd").format(new Date());
     }
 
+    /**
+     * Gets last written file and checks dates.
+     * @return last file name
+     */
     private String getLastFile() {
         File folder = new File("./");
         File[] listOfFiles = folder.listFiles();
@@ -52,7 +71,11 @@ public class FileManipulator {
         return lastFile.length() > 0 ? lastFile : null;
     }
 
-
+    /**
+     * Reads the content of the given file.
+     * @return contents of the JSON as string
+     * @throws FileNotFoundException
+     */
     public String readLastFile() throws FileNotFoundException {
         if (getLastFile() != null) {
             Scanner in = new Scanner(new FileReader(getLastFile()));
@@ -67,6 +90,5 @@ public class FileManipulator {
             return null;
         }
     }
-
 
 }

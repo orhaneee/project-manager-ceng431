@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Activity class which also has a composition between Task and Project.
+ */
 public class Activity {
 
     public Activity(int number, String description, Date startDate,
@@ -146,34 +149,19 @@ public class Activity {
 
     public void printAllTasksOfDuration(){
         for (Task task : taskList) {
-            System.out.println("Task Id: " + task.getNumber() + "    Duration: " + calculateTaskDuration(task));
+            System.out.println("Task Id: "
+                    + task.getNumber()
+                    + "    Duration: " + calculateTaskDuration(task));
         }
     }
 
-
-    /*
-    public List<Employee> getEmployees() {
-        List<Employee> employeeList = new ArrayList<>();
+    public List<Integer> getDistinctResourceIds() {
+        List<Integer> resourceIdList = new ArrayList<>();
         for (Task task : taskList) {
-            for (Employee employee : task.getEmployees()) {
-                if (!employeeList.contains(employee)) {
-                    employeeList.add(employee);
-                }
+            if (!resourceIdList.contains(task.getResourceId())) {
+                resourceIdList.add(task.getResourceId());
             }
         }
-        return employeeList;
+        return resourceIdList;
     }
-
-    public List<Consultant> getConsultants() {
-        List<Consultant> consultantList = new ArrayList<>();
-        for (Task task : taskList) {
-            for (Consultant consultant : task.getConsultants()) {
-                if (!consultantList.contains(consultant)) {
-                    consultantList.add(consultant);
-                }
-            }
-        }
-        return consultantList;
-    }
-    */
 }

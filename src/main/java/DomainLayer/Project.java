@@ -5,6 +5,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.ListIterator;
 
+/**
+ * Project class
+ */
 public class Project {
 
     public Project(String name, String description, Date startDate,
@@ -51,10 +54,9 @@ public class Project {
         return activityList;
     }
 
-
     public Activity findActivity(int number) {
         for (Activity activity : activityList) {
-            if(activity.getNumber() == number) {
+            if (activity.getNumber() == number) {
                 return activity;
             }
         }
@@ -65,7 +67,7 @@ public class Project {
         for (Activity activity : activityList) {
             List<Task> taskList = activity.getTaskList();
             for (Task task : taskList) {
-                if(task.getNumber() == taskId){
+                if (task.getNumber() == taskId) {
                     return activity;
                 }
             }
@@ -116,35 +118,21 @@ public class Project {
 
     public void printAllActivitiesOfDuration() {
         for (Activity activity : activityList) {
-            System.out.println("Activity name: " + activity.getNumber() + "     Duration: " + activity.calculateAllTaskDuration());
+            System.out.println("Activity name: "
+                    + activity.getNumber()
+                    + "     Duration: " + activity.calculateAllTaskDuration());
         }
     }
 
-
-
-    /*
-    public List<Employee> getEmployees() {
-        List<Employee> employeeList = new ArrayList<>();
+    public List<Integer> getDistinctResourceIds() {
+        List<Integer> resourceIdList = new ArrayList<>();
         for (Activity activity : activityList) {
-            for (Employee employee : activity.getEmployees()) {
-                if (!employeeList.contains(employee)) {
-                    employeeList.add(employee);
+            for (int id : activity.getDistinctResourceIds()) {
+                if (!resourceIdList.contains(id)) {
+                    resourceIdList.add(id);
                 }
             }
         }
-        return employeeList;
+        return resourceIdList;
     }
-    
-    public List<Consultant> getConsultants() {
-        List<Consultant> consultantList = new ArrayList<>();
-        for (Activity activity : activityList) {
-            for (Consultant consultant : activity.getConsultants()) {
-                if (!consultantList.contains(consultant)) {
-                    consultantList.add(consultant);
-                }
-            }
-        }
-        return consultantList;
-    }
-    */
 }

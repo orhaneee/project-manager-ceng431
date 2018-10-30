@@ -1,6 +1,6 @@
 package PresentationLayer;
 
-import DomainLayer.ProjectManagement;
+import DomainLayer.ProjectManager;
 import Exceptions.IndexNotFoundException;
 
 import java.text.DateFormat;
@@ -9,6 +9,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+/**
+ * It is responsible for printing menu contents.
+ *
+ * This class is also singleton.
+ */
 public class Menu {
     private static Menu ourInstance = new Menu();
 
@@ -16,15 +21,12 @@ public class Menu {
         return ourInstance;
     }
 
-    private Menu() {
-    }
+    private Menu() {}
 
-    ProjectManagement projectManager = ProjectManagement.getInstance();
+    private ProjectManager projectManager = ProjectManager.getInstance();
 
     public void init() {
         projectManager.readProjectsFromFile();
-
-
 
         while (true) {
             System.out.println("Welcome to Project Management System!");
@@ -52,8 +54,6 @@ public class Menu {
                 e.printStackTrace();
             }
         }
-
-
     }
 
     private void parseCommand(int index) throws IndexNotFoundException, ParseException {
@@ -92,11 +92,14 @@ public class Menu {
             case 4:
                 projectManager.calculateTimes();
                 break;
-            case 5: //find number of distinct employees and consultants assigned to a project, activity and task.
+            case 5:
+                projectManager.showDistinctResources();
                 break;
-            case 6: projectManager.printProjectList(); //display project details.
+            case 6:
+                projectManager.printProjectList();
                 break;
-            case 7: projectManager.printResourceList(); //display resource details. //not working!!!!!!!!
+            case 7:
+                projectManager.printResourceList();
                 break;
             case 8:
                 projectManager.writeProjectsToFile();
